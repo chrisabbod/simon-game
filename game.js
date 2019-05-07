@@ -22,5 +22,8 @@ $(".btn").click(function(event) {
 
   userClickedPattern.push(userChosenColor);
 
+  var audio = new Audio("sounds/" + userChosenColor + ".mp3");
+  audio.play();
+
   console.log(userClickedPattern);
 })
