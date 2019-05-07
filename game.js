@@ -2,10 +2,14 @@ var buttonColors = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 var level = 0;
+var started = false;
 
 $(document).keypress(function () {
-  $("h1").text("Level 0");
-  nextSequence();
+  if (!started) {
+    $("h1").text("Level 0");
+    nextSequence();
+  }
+  started = true;
 });
 
 function nextSequence() {
@@ -61,8 +65,19 @@ function checkAnswer(currentLevel) {
         nextSequence();
       }, 1000);
     }
-    console.log("SUCCESS!");
   } else {
-    console.log("WRONG!");
+    playSound("wrong");
+    $("body").addClass("game-over");
+    setTimeout(function() {
+      $("body").removeClass("game-over");
+    }, 200);
+    $("h1").text("Game Over, Press Any Key to Restart");
+    startOver();
   }
+}
+
+function startOver() {
+  level = 0;
+  gamePattern = [];
+  started = false;
 }
